@@ -14,7 +14,11 @@
 
 </ul>
 
-<%= link "Comments", to: Routes.issue_comment_path(@conn, :index, @issue.id) %>
+<turbo-frame id="comments" src="<%= Routes.issue_comment_path(@conn, :index, @issue.id) %>">
+  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+       <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
+</turbo-frame>
 <h3>New Comment</h3>
 <%= form_for @comment_changeset, Routes.issue_comment_path(@conn, :create, @issue.id), fn f -> %>
   <%= text_input f, :content %>

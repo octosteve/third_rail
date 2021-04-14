@@ -1,5 +1,8 @@
-<ul>
-<%= for comment <- @comments do %>
-  <li><%=comment.content %></li>
-<% end %>
-</ul>
+<turbo-frame id="comments">
+  <h3>Comments</h3>
+  <ul>
+    <%= for comment <- @comments do %>
+      <li><%=comment.content %></li>
+    <% end %>
+  </ul>
+</turbo-frame>
