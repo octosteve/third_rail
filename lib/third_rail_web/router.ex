@@ -16,7 +16,7 @@ defmodule ThirdRailWeb.Router do
   scope "/", ThirdRailWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", IssueController, :index
 
     resources "/issues", IssueController do
       resources "/comments", CommentController, only: [:create, :index]
