@@ -1,0 +1,25 @@
+<h1>Show Issue</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @issue.title %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @issue.content %>
+  </li>
+
+</ul>
+
+<%= link "Comments", to: Routes.issue_comment_path(@conn, :index, @issue.id) %>
+<h3>New Comment</h3>
+<%= form_for @comment_changeset, Routes.issue_comment_path(@conn, :create, @issue.id), fn f -> %>
+  <%= text_input f, :content %>
+  <%= submit "Comment" %>
+<% end %>
+
+<span><%= link "Edit", to: Routes.issue_path(@conn, :edit, @issue) %></span>
+<span><%= link "Back", to: Routes.issue_path(@conn, :index) %></span>

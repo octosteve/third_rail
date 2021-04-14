@@ -1,0 +1,5 @@
+<ul>
+<%= for comment <- @comments do %>
+  <li><%=comment.content %></li>
+<% end %>
+</ul>

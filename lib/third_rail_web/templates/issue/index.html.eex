@@ -1,0 +1,28 @@
+<h1>Listing Issues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for issue <- @issues do %>
+    <tr>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.issue_path(@conn, :show, issue) %></span>
+        <span><%= link "Edit", to: Routes.issue_path(@conn, :edit, issue) %></span>
+        <span><%= link "Delete", to: Routes.issue_path(@conn, :delete, issue), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Issue", to: Routes.issue_path(@conn, :new) %></span>
