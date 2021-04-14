@@ -2,6 +2,8 @@ defmodule ThirdRailWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
+  channel "comment:issue:*", ThirdRailWeb.CommentChannel
+
   # channel "room:*", ThirdRailWeb.RoomChannel
 
   # Socket params are passed from the client and can

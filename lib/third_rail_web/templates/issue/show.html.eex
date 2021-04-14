@@ -1,4 +1,4 @@
-<h1>Show Issue</h1>
+<h1 id="issue" data-issue-id="<%= @issue.id %>">Show Issue</h1>
 
 <ul>
 

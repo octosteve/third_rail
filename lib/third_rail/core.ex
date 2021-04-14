@@ -92,8 +92,21 @@ defmodule ThirdRail.Core do
          |> Ecto.build_assoc(:comments)
          |> change_comment(comment_params)
          |> Repo.insert() do
-      {:ok, _comment} = result -> result
-      {:error, changeset} -> {:error, issue, changeset}
+      {:ok, comment} = result ->
+        ThirdRailWeb.Endpoint.broadcast(
+          "comment:issue:#{issue.id}",
+          "new_comment",
+          %{
+            comment:
+              ThirdRailWeb.CommentView.render("_comment.html", comment: comment)
+              |> Phoenix.HTML.safe_to_string()
+          }
+        )
+
+        result
+
+      {:error, changeset} ->
+        {:error, issue, changeset}
     end
   end
 
