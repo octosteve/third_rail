@@ -1,6 +1,8 @@
 defmodule ThirdRailWeb.CommentController do
   use ThirdRailWeb, :controller
 
+  plug :determine_layout
+
   alias ThirdRail.Core
 
   def index(conn, %{"issue_id" => issue_id}) do
@@ -18,6 +20,21 @@ defmodule ThirdRailWeb.CommentController do
       {:error, issue, %Ecto.Changeset{}} ->
         conn
         |> redirect(to: Routes.issue_path(conn, :show, issue))
+    end
+  end
+
+  defp determine_layout(conn, _opts) do
+    if turbo_frame_request?(conn) do
+      conn |> put_layout(false)
+    else
+      conn
+    end
+  end
+
+  defp turbo_frame_request?(conn) do
+    case get_req_header(conn, "turbo-frame") do
+      [] -> false
+      _header -> true
     end
   end
 end
