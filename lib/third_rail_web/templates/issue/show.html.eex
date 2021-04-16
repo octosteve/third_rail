@@ -19,11 +19,14 @@
        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
   </svg>
 </turbo-frame>
+
 <h3>New Comment</h3>
-<%= form_for @comment_changeset, Routes.issue_comment_path(@conn, :create, @issue.id), fn f -> %>
-  <%= text_input f, :content %>
-  <%= submit "Comment" %>
-<% end %>
+<turbo-frame id="comment_form">
+  <%= form_for @comment_changeset, Routes.issue_comment_path(@conn, :create, @issue.id), fn f -> %>
+    <%= text_input f, :content %>
+    <%= submit "Comment" %>
+  <% end %>
+</turbo-frame>
 
 <span><%= link "Edit", to: Routes.issue_path(@conn, :edit, @issue) %></span>
 <span><%= link "Back", to: Routes.issue_path(@conn, :index) %></span>
