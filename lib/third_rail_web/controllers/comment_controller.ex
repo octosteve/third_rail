@@ -15,6 +15,7 @@ defmodule ThirdRailWeb.CommentController do
       {:ok, comment} ->
         if Map.get(conn.assigns, :can_handle_turbo_stream) do
           conn
+          |> put_resp_content_type("text/vnd.turbo-stream.html")
           |> render("comment.stream.html", comment: comment, layout: false)
         else
           conn

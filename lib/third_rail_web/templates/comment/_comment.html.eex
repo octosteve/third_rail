@@ -1,1 +1,3 @@
-<li id="comment_<%= @comment.id %>"><%= @comment.content %></li>
+<li id="comment_<%= @comment.id %>">
+  <%= @comment.content %>
+</li>

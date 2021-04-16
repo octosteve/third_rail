@@ -1,5 +1,5 @@
-<turbo-stream action="append" target="comments">
-    <template>
+<turbo-stream action="append" target="comment_list">
+  <template>
     <%= render "_comment.html", comment: @comment %>
   </template>
 </turbo-stream>

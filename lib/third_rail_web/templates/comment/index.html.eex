@@ -1,8 +1,10 @@
 <turbo-frame id="comments">
   <h3>Comments</h3>
   <ul>
-    <%= for comment <- @comments do %>
-      <%= render "_comment.html", comment: comment %>
-    <% end %>
+    <turbo-frame id="comment_list">
+      <%= for comment <- @comments do %>
+        <%= render "_comment.html", comment: comment %>
+      <% end %>
+    </turbo-frame>
   </ul>
 </turbo-frame>
