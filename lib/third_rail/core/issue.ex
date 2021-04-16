@@ -5,7 +5,7 @@ defmodule ThirdRail.Core.Issue do
   schema "issues" do
     field :content, :binary
     field :title, :string
-    has_many :comments, ThirdRail.Core.Comment
+    has_many :comments, ThirdRail.Core.Comment, on_delete: :delete_all
 
     timestamps()
   end
