@@ -55,10 +55,25 @@ let socket = new Socket("/socket", { params: { token: window.userToken } });
 socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
+let channel;
 
-const issue = document.querySelector("#issue");
-if (issue) {
-  let channel = socket.channel(`comment:issue:${issue.dataset.issueId}`, {});
+const disconnectChannel = (channel) => {
+  if (channel) {
+    console.log("Disconnecting!");
+    channel.leave();
+    channel = null;
+  }
+};
+
+const parser = new DOMParser();
+const addToBody = (html) => {
+  let doc = parser.parseFromString(html, "text/html");
+  document.body.appendChild(doc.body);
+};
+
+const joinChannel = (channelName) => {
+  channel = socket.channel(channelName, {});
+
   channel
     .join()
     .receive("ok", (resp) => {
@@ -67,7 +82,16 @@ if (issue) {
     .receive("error", (resp) => {
       console.log("Unable to join", resp);
     });
+
   channel.on("new_comment", ({ body }) => {
-    console.log(body);
+    addToBody(body);
   });
-}
+};
+
+document.addEventListener("turbo:load", (event) => {
+  disconnectChannel(channel);
+  let issue = document.querySelector("#issue");
+  if (issue) {
+    joinChannel(`comment:issue:${issue.dataset.issueId}`);
+  }
+});

@@ -56,6 +56,22 @@ defmodule ThirdRail.Core do
   def get_issue!(id), do: Repo.get!(Issue, id)
 
   @doc """
+  Gets a single comment.
+
+  Raises `Ecto.NoResultsError` if the Issue does not exist.
+
+  ## Examples
+
+      iex> get_comment!(123)
+      %Comment{}
+
+      iex> get_comment!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_comment!(id), do: Repo.get!(Comment, id)
+
+  @doc """
   Creates a issue.
 
   ## Examples
@@ -96,11 +112,7 @@ defmodule ThirdRail.Core do
         ThirdRailWeb.Endpoint.broadcast(
           "comment:issue:#{issue.id}",
           "new_comment",
-          %{
-            comment:
-              ThirdRailWeb.CommentView.render("_comment.html", comment: comment)
-              |> Phoenix.HTML.safe_to_string()
-          }
+          %{id: comment.id}
         )
 
         result
